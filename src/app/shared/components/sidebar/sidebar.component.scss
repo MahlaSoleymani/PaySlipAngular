@@ -1,0 +1,31 @@
+.sidebar-size{
+    width: 4vw;
+    height: 90vh;
+    padding: 0.01rem;
+}
+
+.sidebar-style{
+    // border-radius: 10px;
+    // border: 2px solid black;
+    // margin: 1vh 1vw;
+    justify-content: flex-end !important;
+}
+
+.icon-sidebar{
+    color: #acacc2ff;
+}
+
+li , button{
+    list-style: none;
+    padding: 10px;
+    width: 5vw;
+}
+
+ul{
+    padding-right: 0 !important;
+}
+
+.icon-sidebar:hover{
+color:#ffeebaff ;
+}
+

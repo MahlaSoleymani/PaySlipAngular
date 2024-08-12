@@ -1,0 +1,18 @@
+
+.date-time-lable{
+    position: absolute;
+    top: -11px;
+    right: 5px;
+    /* background-color: #fcfcfc; */
+    padding: 0 5px;
+    font-size: 12px;
+    /* color: #058CDC; */
+}
+
+/* :host::ng-deep .border-date-time .mat-form-field-infix {
+    border-top: none !important;
+} */
+
+:host::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0.9em !important;
+}

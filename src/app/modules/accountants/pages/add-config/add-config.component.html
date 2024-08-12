@@ -1,0 +1,168 @@
+<div fxLayout="column">
+  <div mat-dialog-content class="flx">
+    <form [formGroup]="addFrm" fxLayout="column" >
+      <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <mat-form-field fxFlex="47" appearance="fill">
+          <mat-label>نام</mat-label>
+          <input
+            required
+            matInput
+            type="text"
+            formControlName="name"
+            (keyup.enter)="moveToNext(year)"
+          />
+        </mat-form-field>
+
+        <mat-form-field fxFlex="47" appearance="fill">
+          <mat-label>سال </mat-label>
+          <mat-select
+            formControlName="year"
+            #year
+            (keyup.enter)="moveToNext(dayliSalary)"
+          >
+            <mat-option *ngFor="let y of years" [value]="y">{{ y }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+           <mat-form-field fxFlex="23" appearance="fill">
+          <mat-label>نرخ دستمزد روزانه</mat-label>
+          <input
+            required
+            matInput
+            type="number"
+            formControlName="dayliSalary"
+            (keyup.enter)="moveToNext(overtime)"
+            #dayliSalary
+          />
+          <mat-hint *ngIf="this.addFrm.get(['dayliSalary']).value != ''">
+            {{ this.addFrm.get(["dayliSalary"]).value | number : "." }} تومان
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="23" appearance="fill">
+          <mat-label> نرخ دستمزد اضافه کاری</mat-label>
+          <input
+            required
+            matInput
+            type="number"
+            formControlName="overtime"
+            #overtime
+            (keyup.enter)="moveToNext(lowTimeWork)"
+          />
+          <mat-hint *ngIf="this.addFrm.get(['overtime']).value != ''">
+            {{ this.addFrm.get(["overtime"]).value | number : "." }} تومان
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="23" appearance="fill">
+          <mat-label>نرخ کسرکار</mat-label>
+          <input
+            required
+            matInput
+            type="number"
+            formControlName="lowTimeWork"
+            #lowTimeWork
+            (keyup.enter)="moveToNext(mission)"
+          />
+          <mat-hint *ngIf="this.addFrm.get(['lowTimeWork']).value != ''">
+            {{ this.addFrm.get(["lowTimeWork"]).value | number : "." }} تومان
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="23" appearance="fill">
+          <mat-label fxLayout="row">حق ماموریت</mat-label>
+          <input
+            required
+            matInput
+            type="number"
+            formControlName="mission"
+            #mission
+            (keyup.enter)="moveToNext(childAllowance)"
+          />
+          <mat-hint *ngIf="this.addFrm.get(['mission']).value != ''">
+            {{ this.addFrm.get(["mission"]).value | number : "." }} تومان
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="23" appearance="fill">
+          <mat-label>حق اولاد</mat-label>
+          <input
+            required
+            matInput
+            type="number"
+            formControlName="childAllowance"
+            #childAllowance
+            (keyup.enter)="moveToNext(housing)"
+          />
+          <mat-hint *ngIf="this.addFrm.get(['childAllowance']).value != ''">
+            {{ this.addFrm.get(["childAllowance"]).value | number : "." }} تومان
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="23" appearance="fill">
+          <mat-label>حق مسکن</mat-label>
+          <input
+            required
+            matInput
+            type="number"
+            formControlName="housing"
+            #housing
+            (keyup.enter)="moveToNext(employerInsurancePremium)"
+          />
+          <mat-hint *ngIf="this.addFrm.get(['housing']).value != ''">
+            {{ this.addFrm.get(["housing"]).value | number : "." }} تومان
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="23" appearance="fill">
+          <mat-label>نرخ حق بیمه سهم کارفرما</mat-label>
+          <input
+            required
+            matInput
+            type="number"
+            formControlName="employerInsurancePremium"
+            #employerInsurancePremium
+            (keyup.enter)="moveToNext(workerInsurancePremium)"
+          />
+          <mat-hint
+            *ngIf="this.addFrm.get(['employerInsurancePremium']).value != ''"
+          >
+            {{
+              this.addFrm.get(["employerInsurancePremium"]).value | number : "."
+            }}
+            تومان
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="23" appearance="fill">
+          <mat-label>نرخ حق بیمه سهم کارگر</mat-label>
+          <input
+            required
+            matInput
+            type="number"
+            formControlName="workerInsurancePremium"
+            #workerInsurancePremium
+          />
+          <mat-hint
+            *ngIf="this.addFrm.get(['workerInsurancePremium']).value != ''"
+          >
+            {{
+              this.addFrm.get(["workerInsurancePremium"]).value | number : "."
+            }}
+            تومان
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div
+        fxLayoutAlign="end"
+        fxLayout="row"
+        fxLayoutGap="10px"
+        class="marg-20 margin"
+        fxFlex="100"
+      >
+        <button class="btn-cancel" type="button" (click)="close()">لغو</button>
+        <button class="btn-submit" type="submit">ثبت</button>
+      </div>
+    </form>
+  </div>
+</div>

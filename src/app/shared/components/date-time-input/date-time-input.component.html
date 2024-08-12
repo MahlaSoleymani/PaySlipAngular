@@ -1,0 +1,113 @@
+<div
+  class="padding-lr-10 border-date-time"
+  fxLayout="column"
+  fxLayoutAlign="start stretch"
+>
+  <div
+    fxLayout="column"
+    fxFlexFill
+    fxLayoutAlign="start stretch"
+    *ngIf="showDate"
+    class="marg-bot"
+  >
+    <mat-label class="date-time-lable">{{ dateLable }}</mat-label>
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+      <!-- <mat-form-field fxFlex appearance="standard"> -->
+      <!-- <mat-label>روز</mat-label> -->
+      <mat-select
+        placeholder="روز"
+        [(ngModel)]="day"
+        (selectionChange)="writeValue(generateFullValue())"
+        [required]="required"
+      >
+        <mat-option
+          *ngFor="let d of days"
+          [value]="d.toString().padStart(2, '0')"
+        >
+          {{ d.toString().padStart(2, "0") }}
+        </mat-option>
+      </mat-select>
+      <!-- </mat-form-field> -->
+      <!-- <mat-label>{{this.separator}}</mat-label> -->
+
+      <!-- <mat-form-field fxFlex appearance="standard"> -->
+      <!-- <mat-label>ماه</mat-label> -->
+      <mat-select
+        placeholder="ماه"
+        [(ngModel)]="month"
+        (selectionChange)="writeValue(generateFullValue())"
+        [required]="required"
+      >
+        <mat-option
+          *ngFor="let m of months"
+          [value]="m.toString().padStart(2, '0')"
+        >
+          {{ m.toString().padStart(2, "0") }}
+        </mat-option>
+      </mat-select>
+      <!-- </mat-form-field> -->
+      <!-- <mat-label>{{this.separator}}</mat-label> -->
+
+      <!-- <mat-form-field fxFlex appearance="standard"> -->
+      <!-- <mat-label>سال</mat-label> -->
+      <mat-select
+        placeholder="سال"
+        [(ngModel)]="year"
+        (selectionChange)="writeValue(generateFullValue())"
+        [required]="required"
+      >
+        <mat-option *ngFor="let y of years" [value]="y.toString()">{{
+          y
+        }}</mat-option>
+      </mat-select>
+      <!-- </mat-form-field> -->
+    </div>
+  </div>
+
+  <div
+    fxLayout="column"
+    fxFlexFill
+    fxLayoutAlign="start stretch"
+    *ngIf="showTime"
+  >
+    <mat-label class="date-time-lable">{{ timeLable }}</mat-label>
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+      <!-- <mat-form-field fxFlex="45" appearance="standard"> -->
+      <!-- <mat-label>ساعت</mat-label> -->
+
+      <!-- </mat-form-field> -->
+
+      <!-- <mat-form-field fxFlex="45" appearance="standard"> -->
+      <!-- <mat-label>دقیقه</mat-label> -->
+      <mat-select
+        placeholder="دقیقه"
+        [(ngModel)]="miniute"
+        (selectionChange)="writeValue(generateFullValue())"
+        [required]="required"
+      >
+        <mat-option
+          *ngFor="let m of mins"
+          [value]="m.toString().padStart(2, '0')"
+          >{{ m.toString().padStart(2, "0") }}
+        </mat-option>
+      </mat-select>
+
+      <mat-label>:</mat-label>
+
+      <mat-select
+        placeholder="ساعت"
+        [(ngModel)]="hour"
+        (selectionChange)="writeValue(generateFullValue())"
+        [required]="required"
+      >
+        <mat-option
+          *ngFor="let h of hours"
+          [value]="h.toString().padStart(2, '0')"
+          >{{ h.toString().padStart(2, "0") }}
+        </mat-option>
+      </mat-select>
+
+      <!-- </mat-form-field> -->
+    </div>
+  </div>
+</div>

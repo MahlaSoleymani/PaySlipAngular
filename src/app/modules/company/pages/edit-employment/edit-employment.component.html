@@ -1,0 +1,66 @@
+<div
+  fxLayout="column wrap"
+  fxLayoutAlign="center stretch"
+  fxLayoutGap="10px"
+  class="padding-20"
+  >
+
+  <form [formGroup]="editFrm" (submit)="edit()"  fxLayout="column wrap">
+    <div fxLayout="row wrap" fxLayoutAlign="space-around" fxLayoutGap="10px">
+
+      <mat-form-field fxFlex="22" appearance="fill" class="width" >
+        <mat-label>کد پرسنلی</mat-label>
+        <input required matInput type="text" formControlName="personnelCode" />
+      </mat-form-field>
+
+      <mat-form-field fxFlex="22" appearance="fill">
+        <mat-label>شماره بیمه</mat-label>
+        <input required matInput type="text" formControlName="insuranceNum" />
+      </mat-form-field>
+
+      <mat-form-field fxFlex="47" appearance="fill" class="margin-l0">
+        <mat-label> تعداد ساعت مرخصی در سال</mat-label>
+        <input required matInput type="text" formControlName="timeOff" />
+      </mat-form-field>
+
+      <app-date-time-input required fxFlex="22" formControlName="startWork" dateLable="تاریخ شروع کار" [showDate]="true"
+        [showTime]="false">
+      </app-date-time-input>
+
+      <app-date-time-input required fxFlex="22" formControlName="endWork" dateLable="تاریخ پایان کار" [showDate]="true"
+        [showTime]="false">
+      </app-date-time-input>
+
+      <mat-form-field fxFlex="48" appearance="fill"  class="marg-top-slct">
+        <mat-label>  انتخاب شیفت</mat-label>
+        <mat-select
+          required
+          formControlName="shiftId"
+          #maritalStatus
+        
+          >
+          <mat-option *ngFor="let shift of shifts" [value]="shift.id">
+            {{shift.name}} 
+            <button class="b-icon" *ngIf="shift.id == 0" >
+              <mat-icon class="add-icon color-black"> add </mat-icon>
+            </button>
+            <span *ngIf="shift.id != 0" >{{shift.start}} - {{shift.end}}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div
+      fxLayoutAlign="end"
+      fxLayout="row"
+      fxLayoutGap="10px"
+      class="marg-20 margin"
+      fxFlex="100"
+    >
+      <button class="btn-cancel" type="button" (click)="close()">لغو</button>
+      <button class="btn-submit" type="submit" >
+        ثبت
+      </button>
+    </div>
+  </form>
+</div>

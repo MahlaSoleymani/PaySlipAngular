@@ -1,0 +1,47 @@
+@import "@angular/material/theming";
+@include mat-core();
+$accent: mat-palette($mat-grey);
+
+
+ @mixin date-time($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  // $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+ }
+
+
+.background{
+  background-color: white;
+  }
+
+.date-time-lable {
+  position: relative;
+  top: -15px;
+  right: -65px;
+  padding: 0 5px;
+  font-size: 12px!important;
+  color: #5d5f61ff;
+}
+
+
+:host::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0.9em !important;
+}
+
+
+::ng-deep  .cdk-overlay-pane {
+  min-width: 150px!important;
+}
+
+.border-date-time {
+  border-bottom: 1px solid;
+  height: 50px;
+}
+
+
+.marg-bot{
+  margin-bottom: 10px;
+}
+

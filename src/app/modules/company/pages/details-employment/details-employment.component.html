@@ -1,0 +1,72 @@
+<div
+  class="padding-20"
+  fxLayout="column wrap"
+  fxLayoutAlign="center stretch"
+  fxLayoutGap="10px"
+>
+  <div class="example-button-container" fxLayoutAlign="start center">
+    <button
+      mat-icon-button
+      color="warn"
+      (click)="close()"
+      aria-label="Example icon button with a vertical three dot icon"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="20px">
+    <span class="color"> نام و نام خانوادگی :</span>
+
+    <span>
+      {{ detailsFrm.fullName }}
+    </span>
+  </div>
+
+  <div
+    *ngFor="let emp of detailsFrm.employments"
+    fxLayout="row wrap"
+    fxLayoutAlign="center stretch"
+    fxLayoutGap="10px"
+  >
+    <mat-card
+      class="size"
+      fxLayout="row wrap"
+      fxLayoutAlign="center stretch"
+      fxLayoutGap="10px"
+    >
+      <mat-list>
+        <mat-list-item>
+          <div>
+            <span class="color"> نام شرکت </span>
+            <span>
+              {{ emp.companyName }}
+            </span>
+          </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <div>
+            <span class="color"> تاریخ شروع کار </span>
+            <span>{{ emp.startWork }}</span>
+          </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <div>
+            <span class="color"> تاریخ پایان کار </span>
+            <span>{{ emp.endWork }}</span>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item class="height" *ngIf="emp.isExist == 'true'">
+          <mat-divider></mat-divider>
+          <div>
+            <span class="color"> علت </span>
+            <span>{{ emp.reason }}</span>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
+  </div>
+</div>

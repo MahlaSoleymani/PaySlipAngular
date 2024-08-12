@@ -1,0 +1,63 @@
+::ng-deep .color{
+    color: #7d7c7c;
+}
+
+::ng-deep .mdc-list-item__primary-text {
+  font-family: "Parastoo" !important;
+  font-size: 13px !important;
+}
+mat-divider {
+    width: 100%;
+  }
+  
+
+mat-list {
+  margin: 0 !important;
+  width: 100%;
+}
+
+.size {
+  width: 40%;
+}
+
+::ng-deep .mdc-list-item__primary-text {
+  word-wrap: break-word !important;
+  white-space: pre-wrap !important;
+//   height: initial !important;
+}
+
+::ng-deep .height {
+  height: auto !important;
+}
+
+
+mat-list-item{
+    div{
+        display: flex!important;
+        justify-content: space-between!important;
+    }
+}
+
+.size{
+    border-radius: 5px !important;
+    width: 40%!important;
+    height: auto!important;
+}
+
+.mdc-dialog--open, .mdc-dialog--opening, .mdc-dialog--closing {
+    display: flex !important;
+}
+
+.fullName{
+    width: 40%;
+    height: auto!important;
+}
+
+
+
+
+::ng-deep .mat-mdc-list-item, .mdc-list-item, .mat-mdc-list-item-single-line, .mdc-list-item--with-one-line
+{
+    display: flex!important;
+    justify-content: center !important;
+}

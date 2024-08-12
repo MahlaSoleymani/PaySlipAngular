@@ -1,0 +1,55 @@
+<div fxLayout="column     wrap" fxLayoutAlign="center" fxLayoutGap="10px">
+  <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="10px">
+    <mat-list >
+      <mat-list-item>
+        <div  >
+          <span class="color"> نوع مرخصی </span>
+          <span>
+            {{ timeOffFrm.type | timeOffType }}
+            {{ timeOffFrm.timeType | timeType }}
+          </span>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div>
+          <span class="color"> از تاریخ </span>
+          <span> {{ timeOffFrm.fromDate }}</span>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div>
+          <span class="color"> تا تاریخ </span>
+          <span> {{ timeOffFrm.toDate }}</span>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item class="height">
+        <div>
+          <span class="color"> توضیحات  </span>
+          <span> {{ timeOffFrm.details }}</span>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <div>
+          <span class="color"> وضعیت  </span>
+          <span> {{timeOffFrm.status | timeOffStatus}} </span>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item *ngIf="timeOffFrm.status == 3"> <div>
+        <span class="color"> علت  </span>
+        <span>{{timeOffFrm.reason}}</span>
+      </div></mat-list-item>
+    </mat-list>
+  </div>
+  
+  <div fxLayout="row" fxLayoutAlign="end stretch" fxLayoutGap="10px"  class="marg-20">
+    <button class="btn-cancel" type="button" (click)="close()">بستن</button>
+  </div>
+</div>

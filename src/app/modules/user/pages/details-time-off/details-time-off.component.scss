@@ -1,0 +1,44 @@
+// ::ng-deep .color {
+//   .mdc-list-item__primary-text {
+//     color: #7d7c7c;
+//   }
+// }
+
+::ng-deep .color{
+    color: #7d7c7c;
+}
+
+::ng-deep .mdc-list-item__primary-text {
+  font-family: "Parastoo"!important;
+  font-size: 13px !important;
+}
+mat-divider {
+    width: 30vw;
+  }
+  
+
+mat-list {
+  margin: 0 !important;
+}
+
+.size {
+  width: 100px;
+}
+
+::ng-deep .mdc-list-item__primary-text {
+  word-wrap: break-word !important;
+  white-space: pre-wrap !important;
+//   height: initial !important;
+}
+
+::ng-deep .height {
+  height: auto !important;
+}
+
+
+mat-list-item{
+    div{
+        display: flex!important;
+        justify-content: space-between!important;
+    }
+}

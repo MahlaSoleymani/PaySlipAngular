@@ -1,0 +1,202 @@
+<div
+  fxLayout="column"
+  fxLayoutAlign="start stretch"
+  fxLayoutGap="15px"
+  class="d-main"
+>
+  <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+    <div class="title-style">
+      <h2>پرسنل</h2>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <input
+            placeholder="جستجو"
+            type="text"
+            [(ngModel)]="filterForm.search"
+          />
+          <button class="b-icon" (click)="searchFilter()">
+            <mat-icon class="color-black">search</mat-icon>
+          </button>
+        </div>
+
+        <span
+          class="icon-container"
+          fxLayout="row"
+          fxLayoutAlign="center baseline"
+        >
+          <button class="b-icon">
+            <mat-icon
+              class="add-icon color-black"
+              (mouseenter)="showAddText = true"
+              (mouseleave)="showAddText = false"
+              (click)="personnelSubmit()"
+              >add_circle</mat-icon
+            >
+          </button>
+          <div
+            [ngClass]="{ expanded: showAddText, collapsed: !showAddText }"
+            class="lbl-div-anim z-2"
+          >
+            <label *ngIf="showAddText" class="animated-text z-1"
+              >افزودن پرسنل</label
+            >
+          </div>
+        </span>
+      </div>
+    </div>
+
+    <div class="filter-div marg-top" fxLayout="row" fxLayoutAlign="start">
+      <div
+
+        fxLayout="row"
+        fxLayoutGap="20px"
+        class="container z-2"
+        [ngClass]="{ expanded: isExpanded, collapsed: !isExpanded }"
+      >
+        <button (click)="toggleExpansion()" class="but-icon icon-pad">
+          <mat-icon class="icon-filter">filter_alt</mat-icon>
+        </button>
+        <div class="content" fxLayout="row" fxLayoutAlign="space-between">
+          <div class="slf-center" fxLayoutGap="3vw">
+            <span class="width-50px">از تاریخ:</span>
+
+            <app-date-time-input
+              fxFlex="40"
+              class="margin-tb-0"
+              (click)="$event.stopPropagation()"
+              [(ngModel)]="filterForm.after"
+              [showDate]="true"
+              [showTime]="false"
+            >
+            </app-date-time-input>
+
+            <span class="width-50px">تا تاریخ :</span>
+
+            <app-date-time-input
+              fxFlex="40"
+              class="margin-tb-0"
+              (click)="$event.stopPropagation()"
+              [(ngModel)]="filterForm.before"
+              [showDate]="true"
+              [showTime]="false"
+            >
+            </app-date-time-input>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center" class="di-h">
+            <button (click)="closeDiv()" class="but-icon">
+              <mat-icon class="color-black">search</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start stretch">
+        <mat-chip-listbox
+          #chipGrid
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          *ngIf="filterChips?.length > 0"
+        >
+          <mat-chip
+            *ngFor="let f of filterChips"
+            (removed)="removeFilter(f.id)"
+          >
+            {{ f.name }}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+        </mat-chip-listbox>
+      </div>
+    </div>
+    <div class="bac ht">
+      <div
+        fxLayout="column"
+        fxLayoutAlign="start stretch"
+        fxLayoutGap="10px"
+        class="pad-rt-70"
+      >
+        <table
+          mat-table
+          matSort
+          matSortDisableClear
+          [dataSource]="dataSource"
+          matSortActive="registerDate"
+          matSortDirection="desc"
+        >
+          <ng-container matColumnDef="personFullName">
+            <th mat-header-cell *matHeaderCellDef>نام و نام خانوادگی</th>
+            <td mat-cell *matCellDef="let element">
+              <span class="th-radius-r">
+                {{ element.personFullName }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="personnelCode">
+            <th mat-header-cell *matHeaderCellDef>کد پرسنلی</th>
+            <td mat-cell *matCellDef="let element">
+              <span>
+                {{ element.personnelCode }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="startWork">
+            <th mat-header-cell *matHeaderCellDef>شروع کار</th>
+            <td mat-cell *matCellDef="let element">
+              <span>
+                {{ element.startWork }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="endWork">
+            <th mat-header-cell *matHeaderCellDef>پایان کار</th>
+            <td mat-cell *matCellDef="let element">
+              <span class="th-radius-l">
+                {{ element.endWork }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <div
+                fxLayout="row"
+                fxLayoutAlign="end stretch"
+                fxLayoutGap="10px"
+              >
+                <button
+                  mat-icon-button
+                  color="primary"
+                  type="button"
+                  matTooltip="ویرایش"
+                  (click)="edit(element)"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+
+                <button
+                  mat-icon-button
+                  type="button"
+                  matTooltip="جزئیات"
+                  (click)="GetDetails(element)"
+                >
+                  <mat-icon>info</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator [length]="totalRecords" [pageSize]="8"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

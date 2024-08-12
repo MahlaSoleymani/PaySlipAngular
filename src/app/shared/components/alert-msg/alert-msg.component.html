@@ -1,0 +1,13 @@
+<div fxLayout="column" fxLayoutGap="20">
+  <h3 class="mat-card-title" mat-dialog-title fxLayoutAlign="start center">
+      <mat-icon>info</mat-icon>
+      {{data.title}}
+  </h3>
+   <div mat-dialog-content>
+      <div [innerHTML]="data.message">
+      </div>
+  </div>
+  <div mat-dialog-actions fxLayoutAlign="end">
+      <button type="button" mat-raised-button color="primary" (click)="onOkClick()">{{data.okCaption}}</button>
+  </div>
+</div>

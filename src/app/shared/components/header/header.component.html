@@ -1,0 +1,14 @@
+<div  >
+    <span>
+        <!-- {{userInfo.FullName}} -->
+    </span>
+
+    <div fxLayout="column" fxLayoutAlign="end end">
+        <ul fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="end center" class="header-size">
+            <li *ngFor="let item of items;" [routerLinkActive]="'active'" [routerLink]="item.id" fxLayout="row"
+                fxLayoutAlign="center center" (click)="action(item.actionName ,item.data)">
+                <mat-icon matTooltip="{{item.name}}" matTooltipPosition="after" >{{item.icon}}</mat-icon>
+            </li>
+        </ul>
+    </div>
+</div>

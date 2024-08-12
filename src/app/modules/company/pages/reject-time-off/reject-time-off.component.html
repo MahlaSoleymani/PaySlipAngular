@@ -1,0 +1,26 @@
+<div fxLayout="column" class="size" fxLayoutAlign="center" fxLayoutGap="10px">
+  <div class="example-button-container" fxLayoutAlign="start center">
+    <button mat-icon-button color="warn" (click)="close()"
+      aria-label="Example icon button with a vertical three dot icon">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+
+    <div fxLayoutAlign="start start" class="width90">
+      <span> آیا مایل به رد مرخصی موردنظر هستید؟</span>
+    </div>
+
+    <mat-form-field>
+      <mat-label> علت</mat-label>
+      <textarea matInput required cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5" [(ngModel)]="dto.reason"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center" fxLayoutGap="18px">
+    <button mat-raised-button class="button-radius" (click)="reject()" cdkFocusInitial>
+      ثبت
+    </button>
+  </div>
+</div>

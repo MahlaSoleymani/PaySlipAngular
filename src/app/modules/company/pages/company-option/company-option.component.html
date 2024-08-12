@@ -1,0 +1,28 @@
+<div
+  fxLayout="column"
+  fxLayoutAlign="start stretch"
+  fxLayoutGap="20px"
+  class="margin-pading height90"
+>
+  <div
+    fxLayout="column"
+    fxLayoutAlign="start stretch"
+    fxLayoutGap="15px"
+    class="d-main"
+  >
+    <div class="title-style">
+      <h2>تنظیمات</h2>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <input placeholder="جستجو" type="text" [(ngModel)]="filterForm.search" />
+          <button class="b-icon" (click)="search()">
+            <mat-icon class="color-black">search</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+</div>
+</div>
+

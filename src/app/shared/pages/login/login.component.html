@@ -1,0 +1,34 @@
+<div class="margin-pading-0 max-size background">
+    <!-- 
+    <div class="top-right pink-color d1-size Z-index-1">
+    </div>
+
+    <div class="bottom-lef purple-color d2-size Z-index-1">
+    </div>
+
+    <div class="center-lef green-color d3-size Z-index-1">
+    </div> -->
+
+    <div class="back size display ">
+        <div class="main-size ">
+            <mat-icon class="login-icon">
+                account_circle
+            </mat-icon>
+            <form [formGroup]="formLogin" fxLayoutGap="10px" fxLayout="column">
+                <div class="width-100 div-input" fxLayoutGap="15px">
+                    <input class="input" type="text" placeholder=" نام کاربری" type="text" formControlName="username" />
+                </div>
+                <div class="width-100 div-input" fxLayoutGap="15px">
+                    <input class="input" type="text" placeholder="   رمز عبور " type="password" formControlName="password" />
+                </div>
+                <div class="width-100 div-input" fxLayoutGap="15px">
+                    <button class="btn" (click)="loginUser()">ورود </button>
+                </div>
+            </form>
+        </div>
+        <div class="div-img-size ">
+            <img class="img-size" src="../../../../assets/images/login.jpg" />
+        </div>
+    </div>
+
+</div>

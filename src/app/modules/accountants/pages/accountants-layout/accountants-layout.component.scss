@@ -1,0 +1,17 @@
+.main-content {
+  width: 100%;
+}
+
+:host ::ng-deep .mat-drawer-inner-container::-webkit-scrollbar {
+  display: none;
+}
+
+.sidenav {
+  height: 100%;
+  border: none !important;
+}
+
+
+.with100 {
+  width: 100%;
+}

@@ -1,0 +1,16 @@
+<div class="sidebar-size sidebar-style" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center center">
+<ul fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center center">
+    <li *ngFor="let item of items;" [routerLinkActive]="'active'" [routerLink]="item.id" fxLayout="row" fxLayoutAlign="center center">
+        <mat-icon class="icon-sidebar">{{item.icon}}</mat-icon>
+       <!-- {{item.name}} -->
+    </li>
+</ul>
+
+<div fxLayout="row" fxFlex="45" fxLayoutAlign="center end" >
+    <button (click)="logOut()" class="b-icon align-end">
+        <mat-icon class="icon-sidebar">exit_to_app</mat-icon>
+    </button>
+</div>
+
+
+</div>

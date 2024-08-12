@@ -1,0 +1,9 @@
+
+// Light theme
+$light-primary: mat-palette($mat-deep-purple,400);
+// $light-accent:  mat-palette($mat-light-green);
+$light-accent:  mat-palette($mat-gray,300);
+
+$dark-warn:     mat-palette($mat-deep-orange);
+$light-theme:   mat-light-theme($light-primary, $light-accent , $dark-warn);
+

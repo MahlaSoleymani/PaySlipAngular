@@ -1,0 +1,378 @@
+<div
+  fxLayout="column "
+  fxLayoutAlign="center stretch"
+  fxLayoutGap="10px"
+  class="size"
+>
+<div class="example-button-container" fxLayoutAlign="start center">
+  <button mat-icon-button  color="warn" (click)="close()" aria-label="Example icon button with a vertical three dot icon">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+  <form [formGroup]="editFrm" (submit)="submit()">
+    <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+        <mat-form-field>
+          <mat-label>سال </mat-label>
+          <mat-select formControlName="year">
+            <mat-option *ngFor="let y of years" [value]="y">{{ y }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>ماه</mat-label>
+          <mat-select placeholder="ماه" formControlName="month">
+            <mat-option *ngFor="let m of months" [value]="m.toString().padStart(2, '0')">
+              {{ m.toString().padStart(2, "0")}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- </div>
+
+      <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="10px"> -->
+        <mat-form-field>
+          <mat-label>نرخ دستمزد روزانه</mat-label>
+          <input matInput type="number" formControlName="dayliSalary" #dayliSalary
+            (keyup.enter)="moveToNext(dateCount)" />
+          <mat-hint *ngIf="this.editFrm.get(['dayliSalary']).value != '' ">
+            {{this.editFrm.get(['dayliSalary']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>تعداد روز کارکرد</mat-label>
+          <input matInput type="number" formControlName="dateCount" #dateCount
+            (keyup.enter)="moveToNext(totalSalary)" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>کل دستمزد</mat-label>
+          <input matInput type="number" formControlName="totalSalary" #totalSalary
+            (keyup.enter)="moveToNext(baseSanavat)" name="totalSalary" (focus)="sumInput(dayliSalary ,dateCount , totalSalary )" />
+          <mat-hint *ngIf="this.editFrm.get(['totalSalary']).value != '' ">
+            {{this.editFrm.get(['totalSalary']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>پایه سنوات </mat-label>
+          <input matInput type="number" formControlName="baseSanavat" #baseSanavat (keyup.enter)="moveToNext(housing)" />
+          <mat-hint *ngIf="this.editFrm.get(['baseSanavat']).value != '' ">
+            {{this.editFrm.get(['baseSanavat']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>حق مسکن و خواربار</mat-label>
+          <input matInput type="number" formControlName="housing" #housing (keyup.enter)="moveToNext(mission)" />
+          <mat-hint *ngIf="this.editFrm.get(['housing']).value != '' ">
+            {{this.editFrm.get(['housing']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>حق ماموریت</mat-label>
+          <input matInput type="number" formControlName="mission" #mission (keyup.enter)="moveToNext(missionCount)" />
+          <mat-hint *ngIf="this.editFrm.get(['mission']).value != '' ">
+            {{this.editFrm.get(['mission']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> تعداد روز ماموریت </mat-label>
+          <input matInput type="number" formControlName="missionCount" #missionCount
+            (keyup.enter)="moveToNext(totalMission)" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> کل دستمزد ماموریت</mat-label>
+          <input matInput type="number" formControlName="totalMission" #totalMission
+            (keyup.enter)="moveToNext(childAllowance)" name="totalMission" (focus)="sumInput(mission ,missionCount ,totalMission )" />
+          <mat-hint *ngIf="this.editFrm.get(['totalMission']).value != '' ">
+            {{this.editFrm.get(['totalMission']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>حق اولاد</mat-label>
+          <input matInput type="number" formControlName="childAllowance" #childAllowance
+            (keyup.enter)="moveToNext(childCount)"  />
+          <mat-hint *ngIf="this.editFrm.get(['childAllowance']).value != '' ">
+            {{this.editFrm.get(['childAllowance']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> تعداد اولاد </mat-label>
+          <input matInput type="number"  formControlName="childCount" #childCount
+            (keyup.enter)="moveToNext(totalChildAllowance)" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> کل حق اولاد </mat-label>
+          <input matInput type="number" formControlName="totalChildAllowance" #totalChildAllowance
+            (keyup.enter)="moveToNext(overtime)" name="totalChildAllowance" (focus)="sumInput(childAllowance ,childCount , totalChildAllowance )" />
+          <mat-hint *ngIf="this.editFrm.get(['totalChildAllowance']).value != '' ">
+            {{this.editFrm.get(['totalChildAllowance']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <!-- <mat-form-field>
+          <mat-label>جمع حقوق</mat-label>
+          <input matInput type="number" formControlName="" />
+        </mat-form-field>  -->
+
+        <!-- <mat-form-field>
+            <mat-label> حق خواربار </mat-label>
+            <input matInput type="number" formControlName="groceries" />
+          </mat-form-field> -->
+
+        <mat-form-field>
+          <mat-label> نرخ دستمزد اضافه کاری</mat-label>
+          <input matInput type="number" formControlName="overtime" #overtime (keyup.enter)="moveToNext(overtimeHours)" />
+          <mat-hint *ngIf="this.editFrm.get(['overtime']).value != '' ">
+            {{this.editFrm.get(['overtime']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>تعداد ساعت اضافه کاری</mat-label>
+          <input matInput type="number" formControlName="overtimeHours" #overtimeHours
+            (keyup.enter)="moveToNext(totalOvertime)" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> کل دستمزد اضافه کاری</mat-label>
+          <input matInput type="number" formControlName="totalOvertime" #totalOvertime
+            (keyup.enter)="moveToNext(bonus)" name="totalOvertime" (focus)="sumInput(overtime ,overtimeHours ,totalOvertime )" />
+          <mat-hint *ngIf="this.editFrm.get(['totalOvertime']).value != '' ">
+            {{this.editFrm.get(['totalOvertime']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> پاداش </mat-label>
+          <input matInput type="number" formControlName="bonus" #bonus (keyup.enter)="moveToNext(sumSalary)" />
+          <mat-hint *ngIf="this.editFrm.get(['bonus']).value != '' ">
+            {{this.editFrm.get(['bonus']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> جمع حقوق </mat-label>
+          <input matInput type="number" formControlName="sumSalary" #sumSalary
+            (keyup.enter)="moveToNext(employerInsurancePremium)" name="sumSalary"
+            (focus)="sumSalaryNum()"
+            />
+          <mat-hint *ngIf="this.editFrm.get(['sumSalary']).value != '' ">
+            {{this.editFrm.get(['sumSalary']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>نرخ حق بیمه سهم کارفرما</mat-label>
+          <input matInput type="number" formControlName="employerInsurancePremium" #employerInsurancePremium
+            (keyup.enter)="moveToNext(workerInsurancePremium)" />
+          <mat-hint *ngIf="this.editFrm.get(['employerInsurancePremium']).value != '' ">
+            {{this.editFrm.get(['employerInsurancePremium']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>نرخ حق بیمه سهم کارمند</mat-label>
+          <input matInput type="number" formControlName="workerInsurancePremium" #workerInsurancePremium
+            (keyup.enter)="moveToNext(lowTimeWork)" />
+          <mat-hint *ngIf="this.editFrm.get(['workerInsurancePremium']).value != '' ">
+            {{this.editFrm.get(['workerInsurancePremium']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <!-- <mat-form-field>
+            <mat-label> کل مرخصی </mat-label>
+            <input matInput type="number" formControlName="totalTimeOff" />
+          </mat-form-field> -->
+
+        <mat-form-field>
+          <mat-label> نرخ کسر کار </mat-label>
+          <input matInput type="number" formControlName="lowTimeWork" #lowTimeWork
+            (keyup.enter)="moveToNext(lowTimeWorkCount)" />
+          <mat-hint *ngIf="this.editFrm.get(['lowTimeWork']).value != '' ">
+            {{this.editFrm.get(['lowTimeWork']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>تعداد ساعت کسر کار </mat-label>
+          <input matInput type="number" formControlName="lowTimeWorkCount" #lowTimeWorkCount
+            (keyup.enter)="moveToNext(totalLowTimeWork)" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> کل کسر کار </mat-label>
+          <input matInput type="number" formControlName="totalLowTimeWork" #totalLowTimeWork
+            (keyup.enter)="moveToNext(tax)" name="totalLowTimeWork" (focus)="sumInput(lowTimeWork ,lowTimeWorkCount ,totalLowTimeWork )" />
+          <mat-hint *ngIf="this.editFrm.get(['totalLowTimeWork']).value != '' ">
+            {{this.editFrm.get(['totalLowTimeWork']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> مالیات </mat-label>
+          <input matInput type="number" formControlName="tax" #tax (keyup.enter)="moveToNext(imprest)" />
+          <mat-hint *ngIf="this.editFrm.get(['tax']).value != '' ">
+            {{this.editFrm.get(['tax']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> مساعده </mat-label>
+          <input matInput type="number" formControlName="imprest" #imprest (keyup.enter)="moveToNext(deductions)" />
+          <mat-hint *ngIf="this.editFrm.get(['imprest']).value != '' ">
+            {{this.editFrm.get(['imprest']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> جمع کسورات </mat-label>
+          <input matInput type="number" formControlName="deductions" #deductions (keyup.enter)="moveToNext(sanavat)" name="deductions"
+          (focus)="deductionsNum()" />
+          <mat-hint *ngIf="this.editFrm.get(['deductions']).value != '' ">
+            {{this.editFrm.get(['deductions']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> سنوات </mat-label>
+          <input matInput type="number" formControlName="sanavat" #sanavat (keyup.enter)="moveToNext(sanavatCount)" />
+          <mat-hint *ngIf="this.editFrm.get(['sanavat']).value != '' ">
+            {{this.editFrm.get(['sanavat']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> تعداد روز و ماه کار کرد </mat-label>
+          <input matInput type="number" formControlName="sanavatCount" #sanavatCount
+            (keyup.enter)="moveToNext(totalSanavat)" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>جمع سنوات </mat-label>
+          <input matInput type="number" formControlName="totalSanavat" #totalSanavat (keyup.enter)="moveToNext(reward)" name="totalSanavat" (focus)="sumInput(sanavat ,sanavatCount ,totalSanavat )"/>
+          <mat-hint *ngIf="this.editFrm.get(['totalSanavat']).value != '' ">
+            {{this.editFrm.get(['totalSanavat']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> نرخ عیدی </mat-label>
+          <input matInput type="number" formControlName="reward" #reward (keyup.enter)="moveToNext(rewardCount)" />
+          <mat-hint *ngIf="this.editFrm.get(['reward']).value != '' ">
+            {{this.editFrm.get(['reward']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> تعداد روز و ماه کار کرد </mat-label>
+          <input matInput type="number" formControlName="rewardCount" #rewardCount
+            (keyup.enter)="moveToNext(totalReward)" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> جمع عیدی </mat-label>
+          <input matInput type="number" formControlName="totalReward" #totalReward
+            (keyup.enter)="moveToNext(netSalary)" name="totalReward" (focus)="sumInput(reward ,rewardCount ,totalReward )"/>
+          <mat-hint *ngIf="this.editFrm.get(['totalReward']).value != '' ">
+            {{this.editFrm.get(['totalReward']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> خالص دریافتی </mat-label>
+          <input matInput type="number" formControlName="netSalary" #netSalary
+             name="netSalary"
+            (focus)="netSalaryNum()" />
+          <mat-hint *ngIf="this.editFrm.get(['netSalary']).value != '' ">
+            {{this.editFrm.get(['netSalary']).value
+            |number: '.'}} ریال
+
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> تعداد روز مرخصی در ماه </mat-label>
+          <input matInput type="text" formControlName="dayTimeOffMonth" #dayTimeOffMonth
+            (keyup.enter)="moveToNext(hourTimeOffMonth)" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> تعداد ساعت مرخصی در ماه </mat-label>
+          <input matInput type="text" formControlName="hourTimeOffMonth" #hourTimeOffMonth
+            (keyup.enter)="moveToNext(remainderTimeOffMonth)" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> باقیمانده مرخصی در ماه </mat-label>
+          <input matInput type="text" formControlName="remainderTimeOffMonth" #remainderTimeOffMonth
+            (keyup.enter)="moveToNext(remainderTimeOffYear)" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label> باقیمانده مرخصی در سال </mat-label>
+          <input matInput type="text" formControlName="remainderTimeOffYear" #remainderTimeOffYear />
+        </mat-form-field>
+        
+      </div>
+
+    <div fxLayout="row" fxLayoutAlign="start stretch">
+      <button type="submit" mat-raised-button class="button-radius">
+        <mat-icon>submit</mat-icon>
+        ویرایش
+      </button>
+    </div>
+  </form>
+</div>

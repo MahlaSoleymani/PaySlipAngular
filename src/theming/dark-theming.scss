@@ -1,0 +1,14 @@
+
+// Dark theme
+
+// $mat-blue-grey
+$dark-primary: mat-palette($mat-deep-purple,400);
+// $dark-accent:  mat-palette($mat-light-green);
+$dark-accent:  mat-palette($mat-gray,600);
+
+$dark-warn:    mat-palette($mat-deep-orange);
+$dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+.mat-card-title, h2, h3, h4, h5,h1 {
+  color: mat-color($mat-light-green , darker-contrast);
+}

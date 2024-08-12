@@ -1,0 +1,31 @@
+
+// @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+// @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+img {
+  border-radius: 100%;
+  width: 20vh;
+  height: 10vw;
+}
+
+.user-span {
+  font-size: medium;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info {
+  display: inline-flex;
+  background-color: rgb(96, 108, 93, 0.3);
+  // background-color: white;
+  border: none !important;
+  border-radius: 30px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0 2px 0 rgba(0, 0, 0, 0.19);
+  width: 50%;
+  height: 30vh;
+}
+
+.margin {
+  margin: 20px;
+}

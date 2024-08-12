@@ -1,0 +1,59 @@
+<div class="overflow-x-auto w-full">
+    <table class="table w-full">
+      <!-- head -->
+      <thead>
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox" (change)="toggleAll($event)"/>
+          </label>
+        </th>
+        <th *ngFor="let col of columns">{{ col.Title }}</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- row 1 -->
+      <!-- row 2 -->
+      <!-- row 3 -->
+      <!-- row 4 -->
+      <tr *ngFor="let row of rows; let i = index;">
+        <ng-template [ngIf]="row">
+          <ng-template ngFor let-item [ngForOf]="row">
+            <th *ngIf="item.Type == 'id'">
+              <label>
+                <input type="checkbox" class="checkbox" (change)="selectRow(row)" [checked]="ids.includes(item.Value)"/>
+              </label>
+            </th>
+            <td *ngIf="item.Type != 'id'">
+              <ng-container *ngIf="item.Type == 'text'">{{item.Value}}</ng-container>
+              <div [ngSwitch]="item.Type" >
+                <div *ngSwitchCase="'errorBadge'"
+                     class="badge badge-error">{{item.Value}}</div>
+                <div *ngSwitchCase="'successBadge'"
+                     class="badge badge-success">{{item.Value}}</div>
+                <div *ngSwitchCase="'warningBadge'"
+                     class="badge badge-warning">{{item.Value}}</div>
+              </div>
+            </td>
+          </ng-template>
+        </ng-template>
+        <th>
+          <button *ngIf="!!actions.edit" class="btn btn-primary btn-sm mx-2" (click)="edit(row)">ویرایش</button>
+          <button *ngIf="!!actions.action" class="btn btn-primary btn-sm" (click)="action(row)">{{actions.action}}</button>
+          <button *ngIf="!!actions.delete" class="btn-danger btn btn-sm mx-2" (click)="delete(row)">حذف</button>
+        </th>
+      </tr>
+      </tbody>
+      <!-- foot -->
+      <tfoot>
+      <tr>
+        <th>{{ rows.length }}</th>
+        <th *ngFor="let col of columns">{{ col.Title }}</th>
+        <th></th>
+      </tr>
+      </tfoot>
+  
+    </table>
+  </div>
+  

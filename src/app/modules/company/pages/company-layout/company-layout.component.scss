@@ -1,0 +1,23 @@
+.main-content {
+  width: 100%;
+  // height: calc( 100vh - 20px);
+  // height: 93vh;
+  // background-color: #fafafa;
+}
+
+:host ::ng-deep .mat-drawer-inner-container::-webkit-scrollbar {
+  display: none;
+}
+
+.sidenav {
+  height: 100%;
+  border: none !important;
+  // border-radius: 40px 0 0 40px!important;
+  // background-color: #606C5D;
+  // background-color: #fafafa;
+}
+
+.with100 {
+  width: 100%;
+}
+

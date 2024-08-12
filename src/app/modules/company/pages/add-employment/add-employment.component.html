@@ -1,0 +1,279 @@
+<div fxLayout="column" fxLayoutAlign="centec stretch" class="padding">
+  <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="10px">
+    <form [formGroup]="personFrm" fxLayoutAlign="center stretch">
+      <div
+        fxLayout="row wrap"
+        fxLayoutAlign="start"
+        fxLayoutGap="8px"
+        class="back"
+      >
+        <mat-form-field fxFlex="24" appearance="fill">
+          <mat-label>کد ملی</mat-label>
+          <input
+            required
+            matInput
+            type="text"
+            formControlName="nationalCode"
+            #nationalCode
+            (keyup.enter)="moveToNext(fullName)"
+            minlength="10"
+            maxlength="10"
+            (keyup)="getForNationalCode($event)"
+            autofocus
+          />
+        </mat-form-field>
+
+        <mat-form-field fxFlex="24" appearance="fill">
+          <mat-label>نام و نام خانوادگی</mat-label>
+          <input
+            required
+            matInput
+            type="text"
+            formControlName="fullName"
+            #fullName
+            (keyup.enter)="moveToNext(genderType)"
+          />
+        </mat-form-field>
+
+        <mat-form-field fxFlex="24" ngDefaultControl appearance="fill">
+          <mat-label> جنسیت </mat-label>
+          <mat-select
+            required
+            formControlName="genderType"
+            #genderType
+            (keyup.enter)="moveToNext(maritalStatus)"
+            (selectionChange)="militaryServiceChange($event.value)"
+          >
+            <mat-option [value]="0">زن</mat-option>
+            <mat-option [value]="1">مرد</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field
+          fxFlex="24"
+          class="margin-l0"
+          *ngIf="personFrm.controls.genderType.value == 1"
+          appearance="fill"
+        >
+          <mat-label> وضعیت خدمت </mat-label>
+          <mat-select
+            required
+            formControlName="militaryService"
+            #militaryService
+            (keyup.enter)="moveToNext(maritalStatus)"
+          >
+            <mat-option [value]="true">پایان یافته</mat-option>
+            <mat-option [value]="false">پایان نیافته</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="24" appearance="fill">
+          <mat-label> وضعیت تاهل </mat-label>
+          <mat-select
+            required
+            (selectionChange)="maritalStatusChange($event.value)"
+            formControlName="maritalStatus"
+            #maritalStatus
+            (keyup.enter)="moveToNext(childCount)"
+          >
+            <mat-option [value]="true">متاهل</mat-option>
+            <mat-option [value]="false">مجرد</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="24" appearance="fill">
+          <mat-label>تعداد فرزند</mat-label>
+          <input
+            required
+            matInput
+            type="text"
+            formControlName="childCount"
+            #childCount
+            (keyup.enter)="moveToNext(birthday)"
+          />
+        </mat-form-field>
+
+        <mat-form-field fxFlex="24" appearance="fill">
+          <mat-label>سابقه</mat-label>
+          <input
+            required
+            matInput
+            type="text"
+            formControlName="past"
+            #past
+            (keyup.enter)="moveToNext(personnelCode)"
+          />
+        </mat-form-field>
+
+        <app-date-time-input
+          class="marg-top-0"
+          required
+          fxFlex="48"
+          formControlName="birthday"
+          #birthday
+          (keyup.enter)="moveToNext(past)"
+          dateLable="تاریخ تولد"
+          [showDate]="true"
+          [showTime]="false"
+        >
+        </app-date-time-input>
+      </div>
+    </form>
+  </div>
+
+  <form [formGroup]="addFrm" fxLayout="column" fxLayoutAlign="center stretch">
+    <div fxLayout="column wrap" fxLayoutAlign="start stretch">
+      <div
+        class="margin back"
+        fxLayout="row wrap"
+        fxLayoutAlign="space-around"
+        fxLayoutGap="10px"
+      >
+        <mat-form-field fxFlex="24" appearance="fill">
+          <mat-label>کد پرسنلی</mat-label>
+          <input
+            required
+            matInput
+            type="text"
+            formControlName="personnelCode"
+            #personnelCode
+            (keyup.enter)="moveToNext(insuranceNum)"
+          />
+        </mat-form-field>
+
+        <mat-form-field fxFlex="24" appearance="fill">
+          <mat-label>شماره بیمه</mat-label>
+          <input
+            required
+            matInput
+            type="text"
+            formControlName="insuranceNum"
+            #insuranceNum
+            (keyup.enter)="moveToNext(timeOff)"
+          />
+        </mat-form-field>
+
+        <mat-form-field fxFlex="49" class="margin-l0" appearance="fill">
+          <mat-label> تعداد ساعت مرخصی در سال</mat-label>
+          <input
+            required
+            matInput
+            type="text"
+            formControlName="timeOff"
+            #timeOff
+            (keyup.enter)="moveToNext(startWork)"
+          />
+        </mat-form-field>
+
+        <app-date-time-input
+          required
+          fxFlex="24"
+          formControlName="startWork"
+          #startWork
+          (keyup.enter)="moveToNext(endWork)"
+          dateLable="تاریخ شروع کار"
+          [showDate]="true"
+          [showTime]="false"
+   
+        >
+        </app-date-time-input>
+
+        <app-date-time-input
+          required
+          fxFlex="24"
+          formControlName="endWork"
+          #endWork
+          dateLable="تاریخ پایان کار"
+          [showDate]="true"
+          [showTime]="false"
+        >
+        </app-date-time-input>
+
+        <mat-form-field fxFlex="48" appearance="fill"  class="marg-top-slct">
+          <mat-label>  انتخاب شیفت</mat-label>
+          <mat-select
+            required
+            formControlName="shiftId"
+            #maritalStatus
+          
+            >
+            <mat-option *ngFor="let shift of shifts" [value]="shift.id">
+              {{shift.name}} 
+              <button class="b-icon" *ngIf="shift.id == 0" >
+                <mat-icon class="add-icon color-black"> add </mat-icon>
+              </button>
+              <span *ngIf="shift.id != 0" >{{shift.start}} - {{shift.end}}</span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        
+      </div>
+
+      <div class="margin back" fxLayout="row wrap" fxLayoutAlign="space-around">
+        <mat-form-field fxFlex="24" appearance="fill">
+          <mat-label> نام کاربری</mat-label>
+          <input
+            required
+            matInput
+            type="text"
+            name="userName"
+            formControlName="userName"
+            #userName
+            (keyup.enter)="moveToNext(userType)"
+          />
+        </mat-form-field>
+
+        <mat-form-field fxFlex="24" appearance="fill">
+          <mat-label> نقش کاربر </mat-label>
+          <mat-select
+            required
+            formControlName="userType"
+            #userType
+            (keyup.enter)="moveToNext(password)"
+          >
+            <mat-option [value]="0">کارفرما</mat-option>
+            <mat-option [value]="1">کارمند</mat-option>
+            <mat-option [value]="2"> حسابدار </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="24" appearance="fill">
+          <mat-label> رمز عبور</mat-label>
+          <input
+            required
+            matInput
+            type="password"
+            name="userName"
+            formControlName="password"
+            #password
+            (keyup.enter)="moveToNext(confirmPassword)"
+          />
+        </mat-form-field>
+        <mat-form-field fxFlex="24" appearance="fill">
+          <mat-label> تکرار رمز عبور </mat-label>
+          <input
+            required
+            matInput
+            type="password"
+            name="userName"
+            formControlName="confirmPassword"
+            #confirmPassword
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div
+      fxLayoutAlign="end"
+      fxLayout="row"
+      fxLayoutGap="10px"
+      class="marg-20 margin"
+      fxFlex="100"
+    >
+      <button class="btn-cancel" type="button" (click)="close()">لغو</button>
+      <button class="btn-submit" type="submit" (click)="addEmployment()">
+        ثبت
+      </button>
+    </div>
+  </form>
+</div>

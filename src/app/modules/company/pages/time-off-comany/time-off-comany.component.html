@@ -1,0 +1,229 @@
+<div
+  fxLayout="column"
+  fxLayoutAlign="start stretch"
+  fxLayoutGap="20px"
+  class="margin-pading height90"
+>
+  <div
+    fxLayout="column"
+    fxLayoutAlign="start stretch"
+    fxLayoutGap="15px"
+    class="d-main"
+  >
+    <div class="title-style">
+      <h2>مرخصی</h2>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <input placeholder="جستجو" type="text" />
+          <button class="b-icon" (click)="searchFilter()">
+          <mat-icon class="color-black" >search</mat-icon>
+        </button>
+        </div>
+
+        <span
+          class="icon-container"
+          fxLayout="row"
+          fxLayoutAlign="center baseline"
+        >
+          <button class="b-icon">
+            <mat-icon
+              class="add-icon color-black"
+              (mouseenter)="showAddText = true"
+              (mouseleave)="showAddText = false"
+              (click)="timeOffSubmit()"
+              >add_circle</mat-icon
+            >
+          </button>
+          <div
+            [ngClass]="{ expanded: showAddText, collapsed: !showAddText }"
+            class="lbl-div-anim z-2"
+          >
+            <label *ngIf="showAddText" class="animated-text z-1"
+              >افزودن مرخصی</label
+            >
+          </div>
+        </span>
+      </div>
+    </div>
+
+    <div class="filter-div marg-top" fxLayout="row" fxLayoutAlign="start">
+   
+        <div
+          fxLayout="row"
+          fxLayoutGap="20px"
+          class="container z-2"
+          [ngClass]="{ expanded: isExpanded, collapsed: !isExpanded }"
+        >
+          <button (click)="toggleExpansion()" class="but-icon icon-pad">
+            <mat-icon class="icon-filter">filter_alt</mat-icon>
+          </button>
+
+          <div class="content" fxLayout="row" fxLayoutAlign="space-between">
+            <div class="slf-center" fxLayoutGap="3vw">
+              <mat-form-field fxFlex="90" (click)="$event.stopPropagation()" class="margin-tb-0 h-mff" appearance="fill">
+                <mat-label> نوع مرخصی </mat-label>
+                <mat-select [(ngModel)]="filterForm.timeType" class="border">
+                  <mat-option *ngFor="let timeType of timeTypes" [value]="timeType.id">
+                    {{timeType.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+              <mat-form-field fxFlex="90" (click)="$event.stopPropagation()" class="margin-tb-0 h-mff" appearance="fill">
+                <mat-label> نوع مرخصی </mat-label>
+                <mat-select [(ngModel)]="filterForm.type" class="border">
+                  <mat-option [value]="1">استحقاقی</mat-option>
+                  <mat-option [value]="2">استعلاجی</mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+              <mat-form-field fxFlex="90" (click)="$event.stopPropagation()" class="margin-tb-0 h-mff" appearance="fill">
+                <mat-label> وضعیت </mat-label>
+                <mat-select class="border" [(ngModel)]="filterForm.timeOffStatus">
+                  <mat-option [value]="1"> در حال انتظار </mat-option>
+                  <mat-option [value]="2">پذیرفته شده</mat-option>
+                  <mat-option [value]="3">رد شده</mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center" class="di-h">
+              <button (click)="closeDiv()" class="but-icon">
+                <mat-icon class="color-black">search</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+ 
+
+
+      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start stretch">
+        <mat-chip-listbox
+          #chipGrid
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          *ngIf="filterChips?.length > 0"
+        >
+          <mat-chip
+            *ngFor="let f of filterChips"
+            (removed)="removeFilter(f.id)"
+          >
+            {{ f.name }}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+        </mat-chip-listbox>
+      </div>
+    </div>
+
+    <div class="bac ht">
+      <div
+        fxLayout="column"
+        fxLayoutAlign="start stretch"
+        fxLayoutGap="10px"
+        class="pad-rt-70"
+      >
+        <table
+          mat-table
+          matSort
+          matSortDisableClear
+          [dataSource]="dataSource"
+          matSortActive="registerDate"
+          matSortDirection="desc"
+        >
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="b-b-s-n"></th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon [style.color]="getStatusColor(element.status)"
+                >circle</mat-icon
+              >
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fullName">
+            <th mat-header-cell *matHeaderCellDef>نام و نام خانوادگی</th>
+            <td mat-cell *matCellDef="let element">
+              <span class="th-radius-r">
+                {{ element.fullName }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>نوع</th>
+            <td mat-cell *matCellDef="let element">
+              <span>
+                {{ element.type | timeOffType }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="timeType">
+            <th mat-header-cell *matHeaderCellDef>نوع</th>
+            <td mat-cell *matCellDef="let element">
+              <span>
+                {{ element.timeType | timeType }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="dateTime">
+            <th mat-header-cell *matHeaderCellDef>تاریخ</th>
+            <td mat-cell *matCellDef="let element">
+              <span class="th-radius-l">
+                {{ element.dateTime }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+        
+              <div
+                fxLayout="row"
+                fxLayoutAlign="end stretch"
+                fxLayoutGap="10px"
+              >
+                <button
+                  mat-icon-button
+                  type="button"
+                  matTooltip="جزئیات"
+                  (click)="GetDetails(element)"
+                >
+                  <mat-icon>info</mat-icon>
+                </button>
+
+                <button
+                  [disabled]="element.status == '2'"
+                  mat-icon-button
+                  type="button"
+                  matTooltip="پذیرفتن"
+                  (click)="accept(element)"
+                >
+                  <mat-icon class="accept"> check_circle </mat-icon>
+                </button>
+
+                <button
+                  [disabled]="element.status == '3'"
+                  mat-icon-button
+                  type="button"
+                  matTooltip="رد کردن"
+                  (click)="reject(element)"
+                >
+                  <mat-icon> cancel </mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <mat-paginator [length]="totalRecords" [pageSize]="8"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

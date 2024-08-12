@@ -1,0 +1,17 @@
+<div class="background">
+  <div class="header margin-pading">
+    <app-header [items]="headerItems"></app-header>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="start">
+
+    <div fxLayout="column" fxLayoutAlign="center">
+      <app-sidebar [items]="items"></app-sidebar>
+    </div>
+
+    <div class="margin-pading height100 with100">
+      <router-outlet class="height100"></router-outlet>
+    </div>
+
+  </div>
+</div>

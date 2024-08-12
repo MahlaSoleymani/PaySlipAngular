@@ -1,0 +1,145 @@
+<div
+  fxLayout="row wrap"
+  fxLayoutAlign="center center"
+  class="main-div-container"
+>
+  <form [formGroup]="addFrm" (submit)="addTimeOff()" fxFlex="100">
+    <div
+      fxLayoutAlign="center stretch"
+      fxLayout="row wrap"
+      fxLayoutGap="10px"
+      fxFlex="100"
+    >
+      <div
+        fxLayout="row wrap"
+        fxLayoutAlign="center stretch"
+        fxLayoutGap="10px"
+        fxFlex="100"
+      >
+        <mat-form-field appearance="fill" fxFlex="45" fxLayoutGap="10px">
+          <mat-label>نوع مرخصی </mat-label>
+          <mat-select required formControlName="timeType" class="fiter-select">
+            <mat-option
+              *ngFor="let timeType of timeTypes"
+              [value]="timeType.id"
+            >
+              {{ timeType.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" fxFlex="45">
+          <mat-label>نوع مرخصی </mat-label>
+          <mat-select required formControlName="type" class="fiter-select">
+            <mat-option [value]="1">استحقاقی</mat-option>
+            <mat-option [value]="2">استعلاجی</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div
+        fxLayout="row wrap"
+        fxLayoutAlign="center stretch"
+        fxLayoutGap="10px"
+        *ngIf="addFrm.controls.timeType.value == 1"
+      >
+        <material-timepicker
+          revertLabel="لغو"
+          submitLabel="ثبت"
+          appearance="fill"
+          [userTime]="exportTime"
+          label="از ساعت"
+          fxFlex="45"
+          required
+   
+          ngDefaultControl
+          (change)="onChangefromDate($event)"
+        ></material-timepicker>
+
+        <material-timepicker
+          revertLabel="لغو"
+          submitLabel="ثبت"
+          appearance="fill"
+          [userTime]="exportTime"
+          label="تا ساعت"
+          fxFlex="45"
+          required
+
+          ngDefaultControl
+          (change)="onChangetoDate($event)"
+        ></material-timepicker>
+
+        <mat-form-field appearance="fill" fxFlex="45">
+          <mat-label>تاریخ</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker1"
+            formControlName="dateTime"
+            ngDefaultControl
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div
+        fxLayout="row wrap"
+        fxLayoutAlign="center stretch"
+        fxLayoutGap="10px"
+        fxFlex="95"
+        *ngIf="addFrm.controls.timeType.value == 2"
+      >
+        <mat-form-field appearance="fill" fxFlex="45">
+          <mat-label>از تاریخ </mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker2"
+            formControlName="fromDate"
+            ngDefaultControl
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" fxFlex="45">
+          <mat-label>تا تاریخ </mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker3"
+            formControlName="toDate"
+            ngDefaultControl
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker3"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row wrap" fxLayoutAlign="center stretch" fxLayoutGap="10px" fxFlex="100">
+        <mat-form-field class="details-height" fxFlex="90" appearance="fill">
+          <mat-label>توضیحات</mat-label>
+          <textarea required matInput formControlName="details"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div
+        fxLayoutAlign="end"
+        fxLayout="row"
+        fxLayoutGap="10px"
+        class="marg-20"
+        fxFlex="100"
+      >
+        <button class="btn-cancel" type="button" (click)="close()">لغو</button>
+        <button class="btn-submit" type="submit">ثبت</button>
+      </div>
+    </div>
+  </form>
+</div>

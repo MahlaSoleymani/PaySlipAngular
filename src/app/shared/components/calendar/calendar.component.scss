@@ -1,0 +1,378 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+
+
+
+
+$pickled-bluewood   : #2F3C4E;
+$bismark            : #516F85;
+$casablanca         : #F9AF4C;
+$red-damask         : #DC7043;
+$material-success   : #2E7D32;
+
+$calendar-cell-size : 40.5714px;
+
+.wrapper {
+  padding: 30px;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  margin: auto;
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  .redesign-datepicker-group {
+    position:relative;
+    margin-bottom:45px;
+    &.error {
+      .bar {
+        &:before, &:after {
+          background: red;
+        }
+      }
+      .input-message {
+        color: red;
+        transform: scale(1);
+      }
+    }
+    input {
+      font-size:18px;
+      padding: 10px 0;
+      width: 100%;
+      display:block;
+      border:none;
+      background-color: transparent;
+      border-radius: 0;
+      border-bottom:1px solid #757575;
+      &:focus {
+        outline: none;
+        ~ label {
+          top:-20px;
+          font-size:14px;
+          color:#5264AE;
+        }
+        ~ .bar:before, ~.bar:after {
+          width:50%;
+        }
+        ~ .highlight {
+          -webkit-animation:inputHighlighter 0.3s ease;
+          -moz-animation:inputHighlighter 0.3s ease;
+          animation:inputHighlighter 0.3s ease;
+        }
+      }
+      &:valid {
+        ~ label {
+          top:-20px;
+          font-size:14px;
+          color:#5264AE;
+        }
+      }
+    }
+    label {
+      color:#999;
+      font-size:18px;
+      font-weight:normal;
+      position:absolute;
+      pointer-events:none;
+      left:5px;
+      top:10px;
+      transition:0.2s ease all;
+      -moz-transition:0.2s ease all;
+      -webkit-transition:0.2s ease all;
+    }
+    .bar {
+      position: relative;
+      display: block;
+      width: 100%;
+      &:before, &:after {
+        content:'';
+        height:2px;
+        width:0;
+        bottom:1px;
+        position:absolute;
+        background:#5264AE;
+        transition:0.2s ease all;
+        -moz-transition:0.2s ease all;
+        -webkit-transition:0.2s ease all;
+      }
+      &:before {
+        left:50%;
+      }
+      &:after {
+        right: 50%;
+      }
+    }
+    .highlight {
+      position:absolute;
+      height:60%;
+      width:100px;
+      top:25%;
+      left:0;
+      pointer-events:none;
+      opacity:0.5;
+    }
+    .input-message {
+      position: absolute;
+      top: 100%;
+      transform-origin: 0 0;
+      transform: scale(0);
+      transition: transform .2s;
+      will-change: transform;
+    }
+    @keyframes inputHighlighter {
+      from { background:#5264AE; }
+      to 	{ width:0; background:transparent; }
+    }
+  }
+  .datepicker {
+    width: 300px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    transform-origin: 50% 0%;
+    transform: scale(0);
+    opacity: 0;
+    transition: transform .2s ease, opacity .2s ease;
+    will-change: transform, opacity;
+    &.open {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    header {
+      background-color: $bismark;
+      padding: 16px 24px;
+      font-family: 'Roboto', sans-serif;
+      color: white;
+
+
+      .btn-select-year {
+        font-weight: 300;
+        opacity: .5;
+        cursor: pointer;
+
+        &.active {
+          opacity: 1;
+        }
+      }
+
+      .btn-date-label {
+        margin: 8px 0 4px 0;
+        font-weight: 400;
+        font-size: 1.75em;
+        opacity: .5;
+        cursor: pointer;
+
+        &.active {
+          opacity: 1;
+        }
+      }
+    }
+
+    .body {
+      display: flex;
+
+      .section {
+        width: 300px; height: 348px;
+        padding: 8px;
+        box-sizing: border-box;
+        transition: transform .2s ease;
+        will-change: transform;
+
+        &.calendar {
+          display: flex;
+          flex-direction: column;
+          transform: translateX(-100%);
+
+          &.active {
+            transform: translateX(0%);
+          }
+
+          .month-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 8px 8px 8px;
+            font-size: .9em;
+            .btn-previous-month, .btn-next-month {
+              cursor: pointer;
+              user-select: none;
+            }
+          }
+
+          .weekdays {
+            display: flex;
+
+            .weekday {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: $calendar-cell-size; width: $calendar-cell-size;
+              opacity: .5;
+              font-size: .7em;
+            }
+          }
+
+          .dates {
+            position: relative;
+
+
+            .month {
+              display: flex;
+              flex-wrap: wrap;
+              width: 300px;
+              position: absolute;
+              transform: translateX(0%);
+              transition: transform .3s ease-in-out, opacity .3s ease-in-out;
+              will-change: transform, opacity;
+              opacity: 1;
+              visibility: visible;
+              &.previous {
+                visibility: hidden;
+                opacity: 0;
+                transform: translateX(-100%);
+              }
+              &.next {
+                visibility: hidden;
+                opacity: 0;
+                transform: translateX(100%);
+              }
+
+              .date {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: $calendar-cell-size; width: $calendar-cell-size;
+                border-radius: 50%;
+                transition: color .2s, background-color .2s;
+                will-change: color, background-color;
+                cursor: pointer;
+                user-select: none;
+                position: relative;
+
+                &.selected {
+                  .ripple {
+                    opacity: 1;
+                    transform: scale(.9);
+                  }
+                  span {
+                    z-index: 2;
+                    color: white;
+                  }
+                }
+
+                span {
+                  font-size: .75em;
+                }
+
+
+                .ripple {
+                  position: absolute;
+                  top: 0; left:0;
+                  height: 100%; width: 100%;
+                  transform: scale(.4);
+                  background: $pickled-bluewood;
+                  opacity: 0;
+                  border-radius: 50%;
+                  z-index: 1;
+                  transition: opacity .2s, transform .2s;
+
+                }
+              }
+            }
+
+          }
+        }
+
+        &.year-slider {
+          transform: translateX(0%);
+          display: flex;
+          flex-direction: column;
+
+          &.active {
+            transform: translateX(-100%);
+          }
+          .years {
+            width: 300px;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            overflow-y: scroll;
+
+            .year {
+              padding: 16px;
+              text-align: center;
+              font-size: 18px;
+              transition: font-size .2s, color .2s;
+              will-change: font-size, color;
+
+              &.active {
+                font-size: 28px;
+                color: $bismark;
+              }
+            }
+          }
+        }
+
+      }
+
+    }
+
+    .bottom-controls {
+      display: flex;
+      justify-content: flex-end;
+      background: white;
+
+      > button {
+        background-color: transparent;
+        outline: none;
+        border: none;
+        font-size: 14px;
+        text-transform: uppercase;
+        font-family: 'Roboto', sans-serif;
+        padding: 14px 16px;
+        min-width: 60px;
+        color: $bismark;
+        cursor: pointer;
+        border-radius: 2px;
+        margin: 8px;
+        transition: background-color .2s;
+        &:hover {
+          color: lighten($bismark, 10%);
+          background-color: rgba(158,158,158,.2);
+        }
+        &:active {
+          color: lighten($bismark, 20%);
+          background-color: rgba(158,158,158,.3);
+        }
+      }
+    }
+    @media (min-width: 768px) {
+      flex-direction: row;
+      width: 464px;
+      header {
+        padding: 16px 48px 16px 16px;
+        z-index: 2;
+        .btn-date-label {
+          width: 100px;
+        }
+        .no-wrap {
+          white-space: nowrap;
+        }
+
+      }
+      .section {
+        z-index: 1;
+      }
+      .bottom-controls {
+        width: 300px;
+      }
+    }
+  }
+
+}
+
